@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>UI_date/time by macik</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>UI_date/time</h1>
+          <h2>Расширение для Cotonti CMF</h2>
+	  <div class="right">
+	<a href="index.html"><img src="images/en.png">&nbsp;English</a> |
+	<a href="index_ru.html"><img src="images/ru.png">&nbsp;Русский</a>
+	</div>
+
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/macik/cot_ui_datetime/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/macik/cot_ui_datetime/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/macik/cot_ui_datetime" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>UI_datetime</h1>
+<p>(перейти на <a href="demo.html">демонстрационную страницу</a>)</p>
+
+<p>Это расширение (плагин) для системы управления сайтом Cotonti. Цель этого расширения
+заменить стандартные элементы интерфейса для выбора даты/времени на более удобные и современные, 
+использующие jQueryUI.</p>
+
+<h2>Описание</h2>
+
+<p>Стандартные для Cotonti элементы выбора даты/времени представляют из себя набор выпадающих меню,
+через которые пользователь может выбрать дату последовательно установив год, месяц, день, часы, минуты.
+Данный плагин призван заменить отдельные выпадающие меню на единые поля выбора даты и времени,
+позволяя при этом либо ввести дату/время в привычном формате (дд.мм.гггг чч:мм), либо быстро 
+«в один клик» выбрать их, используя простые и понятные всплывающие элементы управления. </p>
+
+<h2>Функционал</h2>
+
+<ul>
+<li>Единое поле для выбора даты</li>
+<li>Единое поле для выбора времени</li>
+<li>Ввод данных в привычном формате, либо быстрый выбор через всплывающий элемент управления</li>
+<li>Поддержка интернационализации элемента выбора дат (формат даты, названия дней и месяцев)</li>
+<li>На основе библиотеки jQueryUI</li>
+<li>Позволяет использовать темы jQueryUI (и переключать их на лету через ThemeRoller)</li>
+<li>По умолчанию загружается при добавлении/редактировании страниц и при редактировании профилей пользователей</li>
+<li>Дополнительный режим отслеживания элементов дата/время на всех страницах</li>
+</ul>
+
+
+<h3>Комментарии</h3>
+
+<p>Плагин не требует специальных настроек и работает сразу после установки. 
+Протестирован на следующих темах оформления <code>Nemesis</code>, <code>HTML Kickstart</code>, <code>SymiSun-03</code> 
+и должен работать на всех шаблонах или расширениях, которые используют стандартные для Cotonti 
+механизмы формирования элементов выбора даты/времени (функцию <code>cot_selectbox_date</code>
+и массив ресурсов <code>$R['input_date*']</code>.</p>
+
+<p>Если вы все же не используете стандартные средства формирования полей для выбора даты/времени,
+то прочтите следующий подраздел, для понимания как настроить свой код для правильной работы этого 
+расширения.</p>
+
+<h3>Как это работает</h3>
+
+<p>В двух словах плагин работает следубщим образом - стандартные (старые) элементы скрываются от
+пользователя через внедренные (inline) стили, но продолжают оставаться на странице для полноценной 
+передачи параметров на сервер при отправке страницы (сохранении данных). 
+А новые элементы, использующие jQueryUI динамически создаются на месте «старых».</p>
+
+<p>Реализовано это достаточно просто, путем замены стандартных строк ресурсов <code>$R['input_date']</code>
+и <code>$R['input_date_short']</code>, которые являются шаблонами для формирования элементов 
+интерфейса.</p>
+
+<p>Плагин <strong>ui_date/time</strong> использует следующий (<em>'short'</em>) шаблон для даты:</p>
+
+<pre><code>&lt;div class="uidt_date"&gt;{$day} {$month} {$year}&lt;/div&gt;
+&lt;div class="uidt_datetarget"&gt;&lt;/div&gt; 
+</code></pre>
+
+<p>(Для подробностей см. <a href="https://github.com/macik/cot_ui_datetime/blob/master/plugins/ui_datetime/ui_datetime.rc.php">
+<code>ui_datetime.rc.php</code></a>.)</p>
+
+<p>Основные преобразования интерфейса происходят после загрузки страницы.
+JS скрипт ищет на загруженной странице все элементы с классами <code>uidt_date</code> и 
+<code>uidt_time</code>, анализирует их и связывает с новыми элементами, которые создаются
+в контейнерах с классами <code>uidt_datetarget</code> и <code>uidt_timetarget</code> соответственно.</p>
+
+<p>По умолчанию (для снижения нагрузки на сервер) расширение загружается и работает только на страницах
+добавления/редактирования статей и при редактировании профиля пользователей.
+Вы можете включить режим <code>global mode</code> в настройках, тогда расширение будет загружаться на 
+всех страницах и отслеживать все поля ввода дат/времени, вне зависимости от установленных или 
+используемых расширений.</p>
+
+<h2>Установка и настройка</h2>
+
+<ul>
+<li>Распаковать архив, скопировать файлы в корневую папку сайта (при этом файлы из папка JS должны попасть в папку JS сайта,
+а файлы из папки plugins соответственно в plugins).</li>
+<li>Установить через панель Администрирования → Расширения (<code>Управление сайтом → Расширения</code>)</li>
+<li>Если вы уже используете jQueryUI в своем проекте - укажите путь к файлам в 
+<a href="www.example.com/admin/config?n=edit&amp;o=plug&amp;p=ui_datetime">настройках плагина</a>.</li>
+</ul>
+
+<h3>Комментарии</h3>
+
+<p>После установки вы можете увидеть работу и протестировать расширение на странице 
+инструментов администрирования (<code>Управление сайтом → Расширения → UI date/time picker → Администрирование</code>).
+В настройках плагина Вы можете отдельно включить/отключить элементы для выбора даты и времени.</p>
+
+<h2>Ссылки</h2>
+
+<p><a href="http://Cotonti.com/">Cotonti.com</a> -- Сайт CMF Cotonti</p>
+</section>
+
+        <footer>
+          UI_date/time разрабатывает и подерживает <a href="https://github.com/macik">macik</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>

@@ -20,6 +20,10 @@
         <header>
           <h1>UI_date/time</h1>
           <h2>Plugin ui_datetime for Cotonti CMF</h2>
+	  <div class="right">
+	<a href="index.html"><img src="images/en.png">&nbsp;English</a> |
+	<a href="index_ru.html"><img src="images/ru.png">&nbsp;Русский</a>
+	</div>
         </header>
 
         <section id="downloads" class="clearfix">
@@ -60,7 +64,9 @@ you wish to run the library.</p>
 <li>By default working in add/edit page, edit users, user profile.</li>
 <li>Optional mode to track any date/time controls and replace with new one regardless opened page 
 or extension</li>
-</ul><h3>Comments</h3>
+</ul>
+
+<h3>Comments</h3>
 
 <p>Plugin must works out from the box. Tested on <code>Nemesis</code>, <code>HTML Kickstart</code>, <code>SymiSun-03</code> 
 theme and must work on most common themes or extension that uses standard date/time controls 
@@ -85,7 +91,8 @@ and <code>$R['input_date_short']</code>.</p>
 &lt;div class="uidt_datetarget"&gt;&lt;/div&gt; 
 </code></pre>
 
-<p>(See <code>ui_datetime.rc.php</code> for details.)</p>
+<p>(See <a href="https://github.com/macik/cot_ui_datetime/blob/master/plugins/ui_datetime/ui_datetime.rc.php">
+<code>ui_datetime.rc.php</code></a> for details.)</p>
 
 <p>Most part of magic happened after page loads. JS script searches for elements 
 with <code>uidt_date</code> and <code>uidt_time</code> class then 
