@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>UI_date/time by macik</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>UI_date/time</h1>
+          <h2>Plugin ui_datetime for Cotonti CMF</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/macik/cot_ui_datetime/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/macik/cot_ui_datetime/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/macik/cot_ui_datetime" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>UI_datetime </h1>
+
+<p>Plugin for Cotonti CMF. It replaces common date/time selection controls with
+unified pretty style jQueryUI controls.</p>
+
+<h2>Description</h2>
+
+<p>Current date/time selection controls are presented as several separated dropdown select box.
+Separate for year, month, day for date and hour, minutes for time.
+The plugin hides this controls and bring to user unified one input field for date
+and one field for time respectively. In addition this fields supplied with
+easy-to-use dropdown UI controls to selec date/time in one-click.</p>
+
+<h2>Features</h2>
+
+<p>The following markups are supported.  The dependencies listed are required if
+you wish to run the library.</p>
+
+<ul>
+<li>Unified input field for date selections</li>
+<li>Unified input field for time selections</li>
+<li>User friendly pop-up UI control attached for fast selection of date time</li>
+<li>I18n for datepicker control (date format, month and day of weeks names)</li>
+<li>Using jQueryUI library</li>
+<li>jQueryUI ThemeRoller ready</li>
+<li>By default working in add/edit page, edit users, user profile.</li>
+<li>Optional mode to track any date/time controls and replace with new one regardless opened page 
+or extension</li>
+</ul><h3>Comments</h3>
+
+<p>Plugin must works out from the box. Tested on <code>Nemesis</code>, <code>HTML Kickstart</code>, <code>SymiSun-03</code> 
+theme and must work on most common themes or extension that uses standard date/time controls 
+that relies on <code>cot_selectbox_date</code> function and <code>$R['input_date*']</code> resource strings.</p>
+
+<p>But if your use highly customized theme or your custom resource strings (<code>$R['input_date*']</code>) than
+extension may work uncorrectly.</p>
+
+<h3>How extension works</h3>
+
+<p>Old style controls simply hides with inline styles but still work as input fields for transfer 
+parameters to server (while you save the data).
+New fancy style UI controls use jQuery UI library and dynamically added in pages in specially 
+marked DIV containers. </p>
+
+<p>Simply it maked by changing controls template in resource strings <code>$R['input_date']</code> 
+and <code>$R['input_date_short']</code>.</p>
+
+<p>The default <strong>ui_date/time</strong> template for <em>'short'</em> date is:</p>
+
+<pre><code>&lt;div class="uidt_date"&gt;{$day} {$month} {$year}&lt;/div&gt;
+&lt;div class="uidt_datetarget"&gt;&lt;/div&gt; 
+</code></pre>
+
+<p>(See <code>ui_datetime.rc.php</code> for details.)</p>
+
+<p>Most part of magic happened after page loads. JS script searches for elements 
+with <code>uidt_date</code> and <code>uidt_time</code> class then 
+parse it and linked with new controls added in elements with <code>uidt_datetarget</code> 
+and <code>uidt_timetarget</code> class respectively. </p>
+
+<p>By default extension tracks controls only on these pages: add/edit page, edit users, user profile.
+You can switch on <code>global mode</code> in settings for trace all controls on all pages, but it's not
+recommened because will load extension files all the time.</p>
+
+<h2>Install</h2>
+
+<ul>
+<li>Unpack, copy files to root folder of your site.</li>
+<li>Install via Admin → Extensions menu (<code>Administration panel → Extensions</code>)</li>
+<li>If you already use jQueryUI in your project than setup path for jQueryUI library 
+in ui_datetime <a href="www.example.com/admin/config?n=edit&amp;o=plug&amp;p=ui_datetime">settings</a> .</li>
+</ul><h3>Comments</h3>
+
+<p>After install you can see and test extension on Admin → Tools page
+(<code>Administration panel → Extensions → UI date/time picker → Administration</code>).
+You can Enable/Disable date and time controls separately via settings.</p>
+
+<h2>References</h2>
+
+<p><a href="http://Cotonti.com/">Cotonti.com</a> -- Home of Cotonti CMF</p>
+        </section>
+
+        <footer>
+          UI_date/time is maintained by <a href="https://github.com/macik">macik</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
