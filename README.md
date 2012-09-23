@@ -85,3 +85,4 @@ References
 ----------
 
 [Cotonti.com](http://Cotonti.com/) -- Home of Cotonti CMF
+[Discussion](http://www.cotonti.com/forums?m=posts&q=7105) -- Forum thread about extension (in russian)
