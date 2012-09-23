@@ -1,12 +1,6 @@
 <!-- BEGIN: MAIN -->
 <h2>{PHP.L.uidt_testpage}</h2>
 <!-- IF {PHP.cfg.jquery} -->
-<script>
-	$(function() {
-		$('.dateFormat').html($( ".rdpick_testdate" ).datepicker( "option", "dateFormat" ));
-		console.log('');
-	});
-</script>
 <div class="block datetime_test" style="padding-top:15px;">
 <table class="cells">
 	<tbody>
