@@ -29,6 +29,11 @@ you wish to run the library.
 * Optional mode to track any date/time controls and replace with new one regardless opened page 
 or extension
 
+Demo page
+---------
+
+You can see demonstration how extension works here: [Demo page on GitHub](http://macik.github.com/cot_ui_datetime/)
+
 ### Comments
 
 Plugin must works out from the box. Tested on `Nemesis`, `HTML Kickstart`, `SymiSun-03` 
