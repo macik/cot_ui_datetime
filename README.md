@@ -32,7 +32,7 @@ or extension
 Demo page
 ---------
 
-You can see demonstration how extension works here: [Demo page on GitHub](http://macik.github.com/cot_ui_datetime/)
+You can see demonstration how extension works here: [Demo page on GitHub](http://macik.github.com/cot_ui_datetime/demo.html)
 
 ### Comments
 
