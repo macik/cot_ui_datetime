@@ -10,6 +10,8 @@
 defined('COT_CODE') or die('Wrong URL');
 
 $L['plu_title'] = 'UI date/time picker'; // для заголовка страницы
+$L['info_desc'] ='Replaces standard controls for UI date/time picker';
+
 $L['uidt_jqueryrequired'] = 'This plugin works only with jQuery enabled';
 $L['uidt_testpage'] = 'Testing page for date/time picker UI';
 $L['uidt_Date'] = 'Test date UI widget';
