@@ -9,7 +9,6 @@ Hooks=rc
  * Header file for UI date/time picker plugin
  *
  * @package ui_datetime
- * @version 0.1.0
  * @author Andrey Matsovkin
  * @copyright Copyright (c) 2008-2012
  * @license Distributed under BSD License.
