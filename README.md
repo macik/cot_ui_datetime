@@ -16,9 +16,6 @@ easy-to-use dropdown UI controls to selec date/time in one-click.
 Features
 --------
 
-The following markups are supported.  The dependencies listed are required if
-you wish to run the library.
-
 * Unified input field for date selections
 * Unified input field for time selections
 * User friendly pop-up UI control attached for fast selection of date time
@@ -29,10 +26,23 @@ you wish to run the library.
 * Optional mode to track any date/time controls and replace with new one regardless opened page 
 or extension
 
+Requirements
+------------
+
+Works with Cotonti Siena (0.9.x branch).
+
 Demo page
 ---------
 
 You can see demonstration how extension works here: [Demo page on GitHub](http://macik.github.com/cot_ui_datetime/demo.html)
+
+Version info
+------------
+
+Current version 1.2 uses:
+* [jQueryUI](http://www.jqueryui.com) (version 1.8.23 with Redmond theme).
+* [jquery.timepickr.js](http://bililite.nfshost.com/blog/2009/07/09/updating-timepickr/) - extended version of original [timepickr](http://haineault.com) jQuery plugin
+
 
 ### Comments
 
@@ -59,7 +69,7 @@ The default __ui_date/time__ template for _'short'_ date is:
     <div class="uidt_date">{$day} {$month} {$year}</div>
     <div class="uidt_datetarget"></div> 
 
-(See `ui_datetime.rc.php` for details.)
+(See [`ui_datetime.rc.php`](https://github.com/macik/cot_ui_datetime/blob/master/plugins/ui_datetime/ui_datetime.rc.php) for details.)
 
 Most part of magic happened after page loads. JS script searches for elements 
 with `uidt_date` and `uidt_time` class then 
@@ -91,4 +101,6 @@ References
 
 * [Cotonti.com](http://Cotonti.com/) -- Home of Cotonti CMF
 * [Discussion](http://www.cotonti.com/forums/?m=posts&q=7105) -- Forum thread about extension (in russian)
+* [Discussion](http://www.cotonti.com/forums?m=posts&q=7118) -- Forum thread about extension (in english)
+
 
