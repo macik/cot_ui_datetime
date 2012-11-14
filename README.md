@@ -22,7 +22,7 @@ Features
 * I18n for datepicker control (date format, month and day of weeks names)
 * Using jQueryUI library
 * jQueryUI ThemeRoller ready
-* By default working in add/edit page, edit users, user profile.
+* By default working in add/edit page, edit users, user profile, search options.
 * Optional mode to track any date/time controls and replace with new one regardless opened page 
 or extension
 
@@ -39,7 +39,7 @@ You can see demonstration how extension works here: [Demo page on GitHub](http:/
 Version info
 ------------
 
-Current version 1.2 uses:
+Current version 1.3 uses:
 * [jQueryUI](http://www.jqueryui.com) (version 1.8.23 with Redmond theme).
 * [jquery.timepickr.js](http://bililite.nfshost.com/blog/2009/07/09/updating-timepickr/) - extended version of original [timepickr](http://haineault.com) jQuery plugin
 

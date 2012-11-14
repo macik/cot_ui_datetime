@@ -25,14 +25,14 @@ function parse_time(time_str) {
  * @param targetPrefix - result will be placed in tag with class targetPrefix_name
  */
 function replace_std_datepicker(name,targetPrefix){
-	//console.log('replacing date: '+name);
-	var date_control = "select[name^='"+name+"']";
-	var elDay = $(date_control).filter("[name*='day']");
-	var elMonth = $(date_control).filter("[name*='month']");
-	var elYear = $(date_control).filter("[name*='year']");
+	var name_for_id = name.replace(/[^\w+]/g,''),
+		date_control = "select[name^='"+name+"']",
+		elDay = $(date_control).filter("[name*='day']"),
+		elMonth = $(date_control).filter("[name*='month']"),
+		elYear = $(date_control).filter("[name*='year']");
 
 	if (elDay.length && elMonth.length && elYear.length) {
-		var datepicker_template = '<input id="rdpick_'+name+'" type="text">';
+		var datepicker_template = '<input id="rdpick_'+name_for_id+'" type="text">';
 		if (targetPrefix) {
 			var target = $('.'+targetPrefix+'_'+name);
 		} else {
@@ -56,9 +56,9 @@ function replace_std_datepicker(name,targetPrefix){
 				if (val > maxYear) maxYear = val;
 			}
 		});
-		var maxDate = new Date(maxYear,11,31);
-		var minDate = new Date(minYear,0,1);
-		$( '#rdpick_'+name ).datepicker({
+		var maxDate = new Date(maxYear,11,31),
+			minDate = new Date(minYear,0,1);
+		$( '#rdpick_'+name_for_id).datepicker({
 			changeYear: true,
 			maxDate: maxDate,
 			minDate: minDate,
@@ -85,15 +85,14 @@ function replace_std_datepicker(name,targetPrefix){
 					}
 				}
 			},
-			onSelect: function(dateText, inst) {
-		   },
-		   defaultDate:dateObj
+			onSelect: function(dateText, inst) {},
+			defaultDate:dateObj
 		}).datepicker('setDate',dateObj);
 
 		$(date_control).bind('change',function(){
-			var valDay   = elDay.val();
-			var valMonth = elMonth.val();
-			var valYear  = elYear.val();
+			var valDay   = elDay.val(),
+				valMonth = elMonth.val(),
+				valYear  = elYear.val();
 			if (valDay && valMonth && valYear) {
 				var dateObj = new Date(valYear,valMonth-1,valDay);
 			} else {
@@ -104,7 +103,7 @@ function replace_std_datepicker(name,targetPrefix){
 		});
 
 		if (elYear.parent().data('uidtShowformat')) {
-			target.append(' (' + $( '#rdpick_'+name ).datepicker( "option", "dateFormat" )+')');
+			target.append(' (' + $( '#rdpick_'+name_for_id).datepicker( "option", "dateFormat" )+')');
 		}
 	}
 }
@@ -115,14 +114,13 @@ function replace_std_datepicker(name,targetPrefix){
  * @param targetPrefix - result will be placed in tag with class targetPrefix_name
  */
 function replace_std_timepicker(name,targetPrefix){
-	//console.log('replacing time: '+name);
-
-	var time_control = "select[name^='"+name+"']";
-	var elHour = $(time_control).filter("[name*='hour']");
-	var elMinute = $(time_control).filter("[name*='minute']");
+	var name_for_id = name.replace(/[^\w+]/g,''),
+		time_control = "select[name^='"+name+"']",
+		elHour = $(time_control).filter("[name*='hour']"),
+		elMinute = $(time_control).filter("[name*='minute']");
 
 	if (elHour.length && elMinute.length) {
-		var timepicker_template = '<input id="rtpick_'+name+'" type="text">';
+		var timepicker_template = '<input id="rtpick_'+name_for_id+'" type="text">';
 		if (targetPrefix) {
 			var target = $('.'+targetPrefix+'_'+name);
 		} else {
@@ -138,7 +136,7 @@ function replace_std_timepicker(name,targetPrefix){
 		} else {
 			var timeStr = '';
 		}
-		$( '#rtpick_'+name ).timepickr({
+		$( '#rtpick_'+name_for_id).timepickr({
 			trigger: 'mouseover',
 			convention: 24,
 			resetOnBlur: false,
@@ -172,19 +170,38 @@ function replace_std_timepicker(name,targetPrefix){
 			} else {
 				var timeStr = '';
 			}
-			$('#rtpick_'+name).val(timeStr);
+			$('#rtpick_'+name_for_id).val(timeStr);
 		});
 
 	}
 }
 
+/**
+ * Parses name of input elements and return its base name
+ * (actual for arrays)
+ * Examples:
+ * 		param[value] -> param
+ * 		param[value][value2] -> param[value]
+ * @param input element name
+ * @returns string
+ */
+function getInputName(name){
+	var splited = name.split('[');
+	if (splited.length > 1) {
+		splited.pop();
+		return splited.join('[');
+	} else {
+		return splited[0];
+	}
+}
+
 $(function() {
 	$('.uidt_date').each(function(i,e){
-		var name = $(e).find('select').prop('name').split('[',1)[0];
+		var name = getInputName($(e).find('select').prop('name'));
 		if (name) replace_std_datepicker(name,$(e).data('uidtPrefix'));
 	});
 	$('.uidt_time').each(function(i,e){
-		var name = $(e).find('select').prop('name').split('[',1)[0];
+		var name = getInputName($(e).find('select').prop('name'));
 		if (name) replace_std_timepicker(name,$(e).data('uidtPrefix'));
 	});
 });
