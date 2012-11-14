@@ -39,7 +39,7 @@ You can see demonstration how extension works here: [Demo page on GitHub](http:/
 Version info
 ------------
 
-Current version 1.3 uses:
+Current version uses:
 * [jQueryUI](http://www.jqueryui.com) (version 1.8.23 with Redmond theme).
 * [jquery.timepickr.js](http://bililite.nfshost.com/blog/2009/07/09/updating-timepickr/) - extended version of original [timepickr](http://haineault.com) jQuery plugin
 
