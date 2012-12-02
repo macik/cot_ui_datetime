@@ -26,11 +26,10 @@ function parse_time(time_str) {
  */
 function replace_std_datepicker(name,targetPrefix){
 	var name_for_id = name.replace(/[^\w+]/g,''),
-		date_control = "select[name^='"+name+"']",
-		elDay = $(date_control).filter("[name*='day']"),
-		elMonth = $(date_control).filter("[name*='month']"),
-		elYear = $(date_control).filter("[name*='year']");
-
+		date_control = $("div.uidt_date > select[name='"+name+"[day]']").parent(),
+		elDay = date_control.find('select').filter("[name*='day']"),
+		elMonth = date_control.find('select').filter("[name*='month']"),
+		elYear = date_control.find('select').filter("[name*='year']");
 	if (elDay.length && elMonth.length && elYear.length) {
 		var datepicker_template = '<input id="rdpick_'+name_for_id+'" type="text">';
 		if (targetPrefix) {
@@ -39,6 +38,7 @@ function replace_std_datepicker(name,targetPrefix){
 			var target = elYear.parent().next('.uidt_datetarget');
 		}
 		target.append(datepicker_template);
+		date_control.hide();
 		var valDay   = elDay.val();
 		var valMonth = elMonth.val();
 		var valYear  = elYear.val();
@@ -98,7 +98,6 @@ function replace_std_datepicker(name,targetPrefix){
 			} else {
 				var dateObj = '';
 			}
-			console.log(name);
 			$( '#rdpick_'+name ).datepicker('setDate',dateObj);
 		});
 
@@ -115,9 +114,9 @@ function replace_std_datepicker(name,targetPrefix){
  */
 function replace_std_timepicker(name,targetPrefix){
 	var name_for_id = name.replace(/[^\w+]/g,''),
-		time_control = "select[name^='"+name+"']",
-		elHour = $(time_control).filter("[name*='hour']"),
-		elMinute = $(time_control).filter("[name*='minute']");
+		time_control = $("select[name='"+name+"[hour]']").parent(),
+		elHour = time_control.find('select').filter("[name*='hour']"),
+		elMinute = time_control.find('select').filter("[name*='minute']");
 
 	if (elHour.length && elMinute.length) {
 		var timepicker_template = '<input id="rtpick_'+name_for_id+'" type="text">';
@@ -127,7 +126,7 @@ function replace_std_timepicker(name,targetPrefix){
 			var target = elHour.parent().next('.uidt_timetarget');
 		}
 		target.html(timepicker_template);
-
+		time_control.hide();
 		var valHour   = elHour.val();
 		var valMinute = elMinute.val();
 

@@ -4,8 +4,8 @@
 Code=ui_datetime
 Name=UI date/time picker
 Description=Replaces common date/time dropdown select boxes with usefull jQuery UI date/time picker
-Version=1.4-1.8.23
-Date=2012-Nov-15
+Version=1.5-1.8.23
+Date=2012-Dec-03
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2012, Andrey Matsovkin
 Notes=Tested with Siena 0.9.5 - 0.9.12
@@ -30,7 +30,6 @@ timepicker_css=14:string::./js/time_pickr/css/ui.timepickr.css:Full path to Time
  * UI date/time picker plugin for Cotonti CMF
  *
  * @package ui_datetime
- * @version 0.1.3
  * @author Andrey Matsovkin
  * @copyright Copyright (c) 2008-2012
  * @license Distributed under BSD License.

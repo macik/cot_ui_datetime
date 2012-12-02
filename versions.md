@@ -7,6 +7,12 @@ unified pretty style jQueryUI controls.
 Changelog
 ---------
 
+
+### v1.5 (03-dec-2012)
+
+* Fix JS code for propper parse fields with similar names (eg. rpagedate and rpagedate2)
+
+
 ### v1.4 (15-nov-2012)
 
 + Added support for Search plugin screen
