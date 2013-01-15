@@ -66,6 +66,9 @@ function replace_std_datepicker(name,targetPrefix){
 			onClose: function(dateText, inst) {
 				if (!dateText) {
 					$(date_control).val('');
+					elYear.val('');
+					elMonth.val('');
+					elDay.val('');
 				} else {
 					curDate = $(this).datepicker('getDate');
 					$(this).datepicker('setDate',curDate);
