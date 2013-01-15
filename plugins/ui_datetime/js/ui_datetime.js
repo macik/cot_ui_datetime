@@ -38,7 +38,7 @@ function replace_std_datepicker(name,targetPrefix){
 			var target = elYear.parent().next('.uidt_datetarget');
 		}
 		target.append(datepicker_template);
-		date_control.hide();
+		if (typeof demo === "undefined") date_control.hide();
 		var valDay   = elDay.val();
 		var valMonth = elMonth.val();
 		var valYear  = elYear.val();
@@ -129,7 +129,7 @@ function replace_std_timepicker(name,targetPrefix){
 			var target = elHour.parent().next('.uidt_timetarget');
 		}
 		target.html(timepicker_template);
-		time_control.hide();
+		if (typeof demo === "undefined") time_control.hide();
 		var valHour   = elHour.val();
 		var valMinute = elMinute.val();
 
