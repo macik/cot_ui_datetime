@@ -1,10 +1,10 @@
-<?PHP
+<?php
 /* ====================
 [BEGIN_COT_EXT]
 Code=ui_datetime
 Name=UI date/time picker
 Description=Replaces common date/time dropdown select boxes with usefull jQuery UI date/time picker
-Version=1.5-1.8.23
+Version=1.5.1-1.8.23
 Date=2012-Dec-03
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2012, Andrey Matsovkin

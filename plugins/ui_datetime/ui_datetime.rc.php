@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /* ====================
 [BEGIN_COT_EXT]
 Hooks=rc
@@ -31,10 +31,10 @@ if ($cfg['jquery'] && ($uidt_cfg['enable_datepicker'] || $uidt_cfg['enable_timep
 
 			define('UI_DATETIME',true);
 
-			// used header cot_rc functions instead footer versions for Cotonti prior v.9.8
-			// due to missed {FOOTER_RC} tag
-			$version = str_replace('.','',$cfg['version']);
-			$rc_link_func = ($version<98) ? 'cot_rc_add_file' : 'cot_rc_link_footer';
+			// used header cot_rc_add_file functions instead footer versions for Cotonti prior v.9.8
+			// due to missed {FOOTER_RC} tag in Admin template
+			// if version of Cotonti <= 0.9.8
+			$rc_link_func = (version_compare($cfg['version'], '0.9.8') <= 0 ) ? 'cot_rc_add_file' : 'cot_rc_link_footer';
 
 			$r_date = $R['input_date_short'];
 			$r_time = str_replace($r_date, '', $R['input_date']);

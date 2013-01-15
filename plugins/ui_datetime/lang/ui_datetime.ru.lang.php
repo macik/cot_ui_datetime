@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  * Localization file for UI date/time picker
  * @author Andrey Matsovkin

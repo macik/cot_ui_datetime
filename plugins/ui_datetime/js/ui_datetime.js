@@ -147,6 +147,8 @@ function replace_std_timepicker(name,targetPrefix){
 					elMinute.val(time[2]);
 				}
 				if (time == '' ) {
+					elHour.val('');
+					elMinute.val('');
 					$(time_control).val('');
 				}
 			}

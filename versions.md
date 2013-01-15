@@ -7,6 +7,9 @@ unified pretty style jQueryUI controls.
 Changelog
 ---------
 
+### v1.5.1 (15-jan-2013)
+
+* fix time value can not be cleared once selected
 
 ### v1.5 (03-dec-2012)
 
