@@ -10,7 +10,7 @@ Hooks=tools
  *
  * @package ui_datetime
  * @author Andrey Matsovkin
- * @copyright Copyright (c) 2008-2012
+ * @copyright Copyright (c) 2008-2013
  * @license Distributed under BSD License.
  */
 
@@ -29,8 +29,9 @@ require_once cot_incfile('forms');
 $tt = new XTemplate(cot_tplfile($plug_name.'.tools', 'plug'));
 $std_date = cot_selectbox_date(time(),'short','testdate');
 $std_time = cot_selectbox_date(time(),'time','testtime');
+$std_datetime = cot_selectbox_date(time(),'','testdatetime');
+$std_datetime_combined = cot_selectbox_date(time(),'combined','testdatetimecmb');
 
 $tt->parse();
 $plugin_body .= $tt->text();
 
-?>

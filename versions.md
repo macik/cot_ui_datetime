@@ -7,6 +7,14 @@ unified pretty style jQueryUI controls.
 Changelog
 ---------
 
+### v1.6.0 (30-aug-2013)
+
+* new lib for time picker (more unified with datepicker and touch device support)
+* fixed issue with consolidated resources and cashed files (thanx to Alex300) 
++ added default path for loading jQueryUI datepicker lang file 
++ added combined datetime input field
++ added some attributes to input template for twiking
+
 ### v1.5.1 (15-jan-2013)
 
 * fix time value can not be cleared once selected
