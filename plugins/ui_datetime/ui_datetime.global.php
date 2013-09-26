@@ -19,43 +19,80 @@ if (!defined('COT_CODE') && !defined('COT_PLUG')) { die('Wrong URL ('.array_pop(
 $plug_name = 'ui_datetime';
 //global $uidt_cfg;
 $uidt_cfg = $cfg['plugin'][$plug_name];
-
+// TODO: проверить в админке Bootstrap
 if ($cfg['jquery'] && ($uidt_cfg['enable_datepicker'] || $uidt_cfg['enable_timepicker'])){
 	if ($uidt_cfg['global_mode']
 		|| ( $_GET['e'] == $plug_name
-			|| ( $_GET['e'] == 'page' && ($_GET['m'] == 'edit' || $_GET['m'] == 'add' ))
-			|| ( $_GET['e'] == 'users' && ($_GET['m'] == 'edit' || $_GET['m'] == 'profile' ))
-			|| ( $_GET['m'] == 'other' && $_GET['p'] == $plug_name )
-			|| ( $_GET['e'] == 'search' )
+			|| ( $_GET['e'] == 'page' && ($_GET['m'] == 'edit' || $_GET['m'] == 'add' )) // page edit
+			|| ( $_GET['e'] == 'users' && ($_GET['m'] == 'edit' || $_GET['m'] == 'profile' )) // prifile edit
+			|| ( $_GET['m'] == 'other' && $_GET['p'] == $plug_name ) // admin tools (test page)
+			|| ( $_GET['e'] == 'search' ) // search plugin
 		)) {
 			define('UI_DATETIME',true);
 
 			$r_date = $R['input_date_short'];
 			$r_time = str_replace($r_date, '', $R['input_date']);
+			$orig_date = $R['input_date'];
+			$orig_date_short = $R['input_date_short'];
 
-			$attr = ($_GET['m'] == 'other' && $_GET['p']) ? 'data-target="target" data-dateformat="1" data-show="source"' : '';
+			if ($_GET['m'] == 'other' && $_GET['p']) $admintools = true;
+			$ui_date = $uidt_cfg['enable_datepicker'];
+			$ui_time = $uidt_cfg['enable_timepicker'];
 
-			if ($uidt_cfg['hidden_source']){
-				$attr .= ' style="display:none;"';
+			$tt = new XTemplate(cot_tplfile($plug_name, 'plug'));
+			if ($uidt_cfg['hidden_source']) $tt->parse('ATTR.HIDDENSOURCE');
+			if ($uidt_cfg['support_touch']) $tt->parse('ATTR.SUPPORTTOUCH');
+			if ($admintools) {
+				$tt->assign('target','newui');
+				$tt->assign('show_dateformat','true');
+				$tt->parse('ATTR.TOOLSMODE.DATE');
+				$tt->parse('ATTR.TOOLSMODE');
 			}
-			if ($uidt_cfg['support_touch']){
-				$attr .= '  data-touch="true"';
-			}
+			$tt->parse('ATTR');
+			$tt->assign('attributes',$tt->text('ATTR'));
 
-			if ($uidt_cfg['enable_datepicker']) {
-				$r_date = "<div class=\"common_date\" $attr>".$r_date.'</div><div style="display:inline;" class="date_target"></div>';
-			}
-			if ($uidt_cfg['enable_timepicker']) {
-				$r_time = "<div class=\"common_time\" $attr>".$r_time.'</div><div style="display:inline;" class="time_target"></div>';
-			}
+			$tt->assign('standard_date_control',$r_date);
 
-			$R['input_date'] = '<div class="uidt mode-datetime">'.$r_date.$r_time.'</div>'; // new template for datetime
-			$R['input_date'] = str_replace('data-target="target"', 'data-target="targetall"', $R['input_date']);
-			$R['input_date'] = str_replace('data-dateformat="1"', '', $R['input_date']);
-			$R['input_date_short'] = '<div class="uidt mode-date">'.$r_date.'</div>'; // new template for date
-			$R['input_date_time'] = '<div class="uidt mode-time">'.$r_time.'</div>'; // new template for time
-			$R['input_date_combined'] = str_replace('data-target="targetall"', 'data-target="targetallcmb"', $R['input_date']);
-			$R['input_date_combined'] = str_replace('mode-datetime', 'mode-datetime-combined', $R['input_date_combined']);
+			$tt->parse('NEWDATE');
+			$tt->assign('standard_time_control',$r_time);
+			$tt->parse('NEWTIME');
+
+
+			// new template for datetime
+			$tt->assign('input_resource',$tt->text('NEWDATE').$tt->text('NEWTIME'));
+			$defmode = ($uidt_cfg['combined'] && !$admintools) ? 'datetime-combined' : 'datetime';
+			$tt->assign('mode',$defmode);
+			$tt->parse('NEWRESOURCE');
+			$R['input_date'] = $tt->text('NEWRESOURCE');
+
+			//new template for date
+			if ($admintools) {
+				$tt->parse('NEWDATE');
+				$tt->assign('input_resource',$tt->text('NEWDATE'));
+			}
+			$tt->assign('mode','date');
+			$tt->parse('NEWRESOURCE');
+			$R['input_date_short'] = $tt->text('NEWRESOURCE');
+
+			// new template for time
+			$tt->parse('NEWTIME');
+			$tt->assign('input_resource',$tt->text('NEWTIME'));
+			$tt->assign('mode','time');
+			$tt->parse('NEWRESOURCE');
+			$R['input_date_time'] = $tt->text('NEWRESOURCE');
+
+			// new template for combined datetime element
+			$tt->parse('NEWDATE');
+			$tt->parse('NEWTIME');
+			$tt->assign('input_resource',$tt->text('NEWDATE').$tt->text('NEWTIME'));
+			$tt->assign('mode','datetime-combined');
+			$tt->parse('NEWRESOURCE');
+			if ($ui_date && $ui_time) $R['input_date_combined'] = $tt->text('NEWRESOURCE');
+
+			// template for new input field
+			$tt->parse('NEWINPUT');
+			$ui_input_tpl = 'var ui_input = \''.str_replace(array("'","\n","\r"), array("\'",'',''), $tt->text('NEWINPUT')).'\';';
+			if ($ui_input_tpl) cot_rc_embed( $ui_input_tpl);
 	}
 }
 

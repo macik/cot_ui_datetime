@@ -5,8 +5,8 @@ Code=ui_datetime
 Name=UI date/time picker
 Category=customization-i18n
 Description=Replaces common date/time dropdown select boxes with usefull jQuery UI date/time picker
-Version=1.6.0-1.8.23
-Date=2013-aug-30
+Version=1.6.1-1.8.23
+Date=2013-sep-25
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2013, Andrey Matsovkin
 Notes=Tested with Siena 0.9.5 - 0.9.14
@@ -26,6 +26,7 @@ enable_timepicker=11:radio:0,1:1:Enable timepicker
 timepicker_js=12:string::./js/time_picker/jquery-ui-timepicker-addon.min.js:Full path to jQuery TimePicker library
 timepicker_css=14:string::./js/time_picker/css/jquery-ui-timepicker-addon.min.css:Full path to TimePicker css file
 hidden_source=17:radio:0,1:1:Hide source with style attribute
+combined=19:radio:0,1:0:Enable `combined` mode by default
 [END_COT_EXT_CONFIG]
 ==================== */
 
@@ -39,5 +40,4 @@ hidden_source=17:radio:0,1:1:Hide source with style attribute
 */
 
 if (!defined('COT_CODE')) { die('Wrong URL '); }
-
 

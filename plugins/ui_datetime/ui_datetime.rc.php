@@ -38,6 +38,8 @@ if ($cfg['jquery'] && ($uidt_cfg['enable_datepicker'] || $uidt_cfg['enable_timep
 			* Если кеш не пуст то она никогда не вызовится и все что в плагине с хуком 'rc' выполнено не будет
 			* */
 
+			if ($_GET['m'] == 'other' && $_GET['p']) $admintools = true;
+
 			$rc_link_func($uidt_cfg['jquery_ui_js']);
 			cot_rc_add_file($uidt_cfg['jquery_ui_css']);
 			if ($usr['lang'] != 'en') {
@@ -50,7 +52,6 @@ if ($cfg['jquery'] && ($uidt_cfg['enable_datepicker'] || $uidt_cfg['enable_timep
 					$rc_link_func($lang_file);
 				}
 			}
-			$rc_link_func($cfg['plugins_dir']."/$plug_name/js/$plug_name.js");
 
 			if ($uidt_cfg['enable_timepicker']) {
 				$timepicker_path = pathinfo($uidt_cfg['timepicker_js'],PATHINFO_DIRNAME);
@@ -63,6 +64,17 @@ if ($cfg['jquery'] && ($uidt_cfg['enable_datepicker'] || $uidt_cfg['enable_timep
 				if ($uidt_cfg['support_touch']) {
 					$rc_link_func($timepicker_path . "/jquery-ui-sliderAccess.min.js");
 				}
+			} else {
+				$ui_off_code = 'var ui_time_off = true;';
 			}
+			if (!$uidt_cfg['enable_datepicker']) $ui_off_code .= 'var ui_date_off = true;';
+
+			$rc_link_func($cfg['plugins_dir']."/$plug_name/js/$plug_name.js");
+
+			if ($admintools) {
+				$rc_link_func($cfg['plugins_dir']."/$plug_name/js/$plug_name.tools.js");
+			}
+
+			if ($ui_off_code) cot_rc_add_embed($plug_name , $ui_off_code);
 	}
 }

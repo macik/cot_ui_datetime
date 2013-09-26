@@ -16,7 +16,7 @@ $L['uidt_testpage'] = 'Testing page for date/time picker UI';
 $L['uidt_Date'] = 'Test date UI widget';
 $L['uidt_Time'] = 'Test time UI widget';
 $L['uidt_DateTime'] = 'Test date/time widget';
-
+$L['uidt_Combined'] = ' (combined mode)';
 $L['uidt_oldstyle'] = 'Common Cotonti date/time selection controls';
 $L['uidt_newstyle'] = 'New date/time UI controls (used with extension)';
 $L['uidt_switchedoff'] = 'Controls switched off';
@@ -26,12 +26,13 @@ $L['cfg_global_mode'] = array('Enable `global mode`','When `global mode` is on e
 				When `global mode` is off (recommended) extension load only on add/edit page and user edit/profile.');
 $L['cfg_jquery_ui_js'] = array('Full path to jQuery UI library','change only if you move default library or using already loaded.');
 $L['cfg_jquery_ui_css'] = array('Full path to jQuery UI css file','');
-$L['cfg_support_touch'] = array('Enabled support slider on touch devices','');
+$L['cfg_support_touch'] = array('Enabled support slider on touch devices','addition buttons «+» and «-» will be added to slider');
 $L['cfg_enable_datepicker'] = array('Enable `UI` datepicker','If switched off you see standard date selection controls.');
 $L['cfg_enable_timepicker'] = array('Enable `UI` timepicker','If switched off you see standard time selection controls.');
 $L['cfg_timepicker_js'] = array('Full path to jQuery TimePicker library','');
 $L['cfg_timepicker_css'] = array('Full path to TimePicker css file','');
 $L['cfg_hidden_source'] = array('Hide source inputs with style attribute','if «Yes» selected all standard date/time controls would be hidden by default, otherwise it will be hidden after page load with jQuery');
+$L['cfg_combined'] = array('Enable `combined` mode by default','if «Yes» selected date and time should be displayed as single picker dialog');
 
 $adminhelp1 = '
 <p>In this test table you can see Cotonti `old style` elements for date/time selection (in first column) and
@@ -41,11 +42,11 @@ $adminhelp1 = '
 <p>Other control attributes: <br />
 <dl class="">
   <dt>data-show="source"</dt>
-  <dd>Show source input controls</dd>
+  <dd>Show source input controls <span class="togglelink" style="display:none;">(<a href="#source" class="uisource">toggle option</a>)</span></dd>
   <dt>data-show="off"</dt>
-  <dd>Switch off new date/time controls</dd>
-  <dt>data-dateformat="true"</dt>
-  <dd>Show date format after date field</dd>
+  <dd>Switch off new date/time controls <span class="togglelink" style="display:none;">(<a href="#off" class="uioff">toggle option</a>)</span></dd>
+  <dt>data-showformat="true"</dt>
+  <dd>Show date format after date field <span class="togglelink" style="display:none;">(<a href="#showformat" class="uiformat">toggle option</a>)</span></dd>
   <dt>data-target="TargetValue"</dt>
   <dd>Defines class name of target block that should be used to insert newstyle input. Target Class name generates as «TargetValue_NameOfInput», where «NameOfInput»
 		is value used as Name of standart input field, and «TargetValue» value used in `data-target` attribute.</dd>

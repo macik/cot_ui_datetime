@@ -15,7 +15,7 @@
 			<td>{PHP.L.uidt_Date}</td>
 			<td>{PHP.std_date}</td>
 			<td><!-- IF {PHP.cfg.plugin.ui_datetime.enable_datepicker} -->
-				<div class="target_testdate"></div>
+				<div class="newui_testdate"></div>
 				<!-- ELSE -->
 				{PHP.L.uidt_switchedoff}
 				<!-- ENDIF -->
@@ -25,7 +25,7 @@
 			<td>{PHP.L.uidt_Time}</td>
 			<td>{PHP.std_time}</td>
 			<td><!-- IF {PHP.cfg.plugin.ui_datetime.enable_timepicker} -->
-				<div class="target_testtime"></div>
+				<div class="newui_testtime"></div>
 				<!-- ELSE -->
 				{PHP.L.uidt_switchedoff}
 				<!-- ENDIF -->
@@ -35,7 +35,7 @@
 			<td>{PHP.L.uidt_DateTime}</td>
 			<td>{PHP.std_datetime}</td>
 			<td><!-- IF {PHP.cfg.plugin.ui_datetime.enable_timepicker} OR {PHP.cfg.plugin.ui_datetime.enable_datepicker} -->
-				<div class="targetall_testdatetime"></div>
+				<div class="newui_testdatetime"></div>
 				<!-- ELSE -->
 				{PHP.L.uidt_switchedoff}
 				<!-- ENDIF -->
@@ -44,8 +44,8 @@
 		<tr>
 			<td>{PHP.L.uidt_DateTime}{PHP.L.uidt_Combined}</td>
 			<td>{PHP.std_datetime_combined}</td>
-			<td><!-- IF {PHP.cfg.plugin.ui_datetime.enable_timepicker} AND {PHP.cfg.plugin.ui_datetime.enable_datepicker} -->
-				<div class="targetallcmb_testdatetimecmb"></div>
+			<td><!-- IF {PHP.cfg.plugin.ui_datetime.enable_timepicker} OR {PHP.cfg.plugin.ui_datetime.enable_datepicker} -->
+				<div class="newui_testdatetimecmb"></div>
 				<!-- ELSE -->
 				{PHP.L.uidt_switchedoff}
 				<!-- ENDIF -->

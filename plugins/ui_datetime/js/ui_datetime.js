@@ -1,3 +1,32 @@
+//var ui_input =
+
+var def_input_tpl = '<input type="text" class="ui_input_tpl">';
+if (typeof ui_input === "undefined") ui_input = def_input_tpl;
+if (typeof ui_date_off === "undefined") ui_date_off = false;
+if (typeof ui_time_off === "undefined") ui_time_off = false;
+
+/**
+ * Use template to generate input with specified Id and returns jQuery object.
+ * @param template - plain html template for input field
+ * @param id - id of new generated object
+ * @returns jQuery object
+ */
+
+function makeInput(template,id){
+	if (!template || template === null || typeof ui_input === "undefined") return null;
+	var $template = $(template),
+		$wrapped = $template.find('.ui_input_tpl'),
+		$plain = $template.closest('.ui_input_tpl');
+	if ($wrapped.length) {
+		$template.find('.ui_input_tpl').attr('id',id);
+	} else if ($plain.length) {
+		$template.closest('.ui_input_tpl').attr('id',id);
+	} else {
+		$template = $(def_input_tpl);
+	}
+	return $template;
+}
+
 /**
  * Parses name of input elements and return its base name
  * (actual for arrays)
@@ -50,10 +79,14 @@ function enable_datetime_picker($dt_block){
 	var classes = $dt_block.attr('class').split(' '),
 		mode = 0;
 		valDay, valMonth, valYear, valHour, valMinute;
-	if (classes.indexOf('mode-date')>-1) mode = 1;
-	if (classes.indexOf('mode-time')>-1) mode = 2;
+	if (classes.indexOf('mode-date')>-1 && !ui_date_off) mode = 1;
+	if (classes.indexOf('mode-time')>-1 && !ui_time_off) mode = 2;
 	if (classes.indexOf('mode-datetime')>-1) mode = 3;
-	if (classes.indexOf('mode-datetime-combined')>-1) mode = 4;
+	if (classes.indexOf('mode-datetime-combined')>-1) {
+		if (ui_date_off || ui_time_off) mode = 3;
+		else mode = 4;
+
+	}
 	if (!mode) return;
 	if (mode != 2) { // for all date modes
 		var date_control = $dt_block.find("div.common_date"),
@@ -70,16 +103,15 @@ function enable_datetime_picker($dt_block){
 				name_for_date= getInputName(date_control.find('select').prop('name')).replace(/[^\w+]/g,''),
 				date_input_id = 'rdpick_'+name_for_date,
 				date_class_name = '.'+date_target+'_'+name_for_date,
-				date_input = $('<input>').attr('id',date_input_id).attr('type','text'); // input id="rdpick_'+name_for_date+'" type="text">';
-
+				date_input = makeInput(ui_input,date_input_id); // input id="rdpick_'+name_for_date+'" type="text">';
 			if (date_target && $(date_class_name).length) {
 				var $date_target = $(date_class_name);
 			} else {
 				var $date_target = $dt_block.find('.date_target');
 			}
-			$date_target.append(date_input);
+			if (!ui_date_off) $date_target.append(date_input);
 			var $datepicker = $('#'+date_input_id);
-			(date_control.data('show') == 'source') ? date_control.show() : date_control.hide();
+			((date_control.data('show') == 'source') || ui_date_off) ? date_control.show() : date_control.hide();
 			var valDay   = elDay.val();
 			var valMonth = elMonth.val();
 			var valYear  = elYear.val();
@@ -98,7 +130,7 @@ function enable_datetime_picker($dt_block){
 
 
 	}
-	if (mode!=1) { // for all modes with timepicker
+	if (mode!=1){ //} && !ui_time_off) { // for all modes with timepicker
 		var time_control = $dt_block.find("div.common_time"),
 			elHour = time_control.find('select').filter("[name*='hour']"),
 			elMinute = time_control.find('select').filter("[name*='minute']");
@@ -111,15 +143,15 @@ function enable_datetime_picker($dt_block){
 				name_for_time = getInputName(time_control.find('select').prop('name')).replace(/[^\w+]/g,''),
 				time_input_id = 'rtpick_' + name_for_time,
 				time_class_name = '.' + time_target + '_' + name_for_time,
-				time_input = $('<input>').attr('id',time_input_id).attr('type','text');
+				time_input = makeInput(ui_input, time_input_id);
 			if (time_target && $(time_class_name).length) {
 				var $time_target = $(time_class_name);
 			} else {
 				var $time_target = $dt_block.find('.time_target');
 			}
-			if (mode!=4) $time_target.append(time_input);
+			if (mode!=4 && !ui_time_off) $time_target.append(time_input);
 			var $timepicker = $('#'+time_input_id);
-			(time_control.data('show') == 'source') ? time_control.show() : time_control.hide();
+			(time_control.data('show') == 'source' || ui_time_off) ? time_control.show() : time_control.hide();
 
 			var valHour = elHour.val();
 			var valMinute = elMinute.val();
@@ -137,10 +169,8 @@ function enable_datetime_picker($dt_block){
 	}
 
 	// initializing datepicker, timepicker or combined input
-	if (mode==4){
+	if (mode==4 && !(ui_date_off || ui_time_off)){ // combined mode datetime picker
 			$datepicker.datetimepicker({
-				//altField: '#'+time_input_id,
-				//showButtonPanel: false,
 				changeYear: true,
 				maxDate: maxDate,
 				minDate: minDate,
@@ -177,38 +207,14 @@ function enable_datetime_picker($dt_block){
 				},
 				defaultDate:dateObj
 			}).datetimepicker('setDate',dateObj);
-			if (date_control && date_control.data('dateformat')) {
-				$datepicker.datepicker("option", "appendText", ' (' + $datepicker.datetimepicker( "option", "dateFormat" )+')');
+			if (date_control && date_control.data('showformat')) {
+				$fmt = $('<span>').attr('class','uidt_format').html(' (' + $datepicker.datepicker( "option", "dateFormat" )+' '+$datepicker.datepicker( "option", "timeFormat" )+')');
+				$date_target.append($fmt );
 			}
+
 		}
 
-	if (mode==2 || mode==3) {
-		$timepicker.val(timeStr);
-		$timepicker.timepicker({
-			addSliderAccess: time_control.data('touch'),
-			sliderAccessArgs: { touchonly: false },
-			onClose: function(dateText, inst) {
-				var newtime = parse_time($(this).val());
-				if (newtime && newtime.length == 3 ) {
-					elHour.val(newtime.hour);
-					elMinute.val(newtime.minute);
-				} else {
-					$(this).val(timeStr);
-				}
-			}
-		});
-		$timepicker.change(function(){
-			var newtime = parse_time($(this).val());
-			if (newtime && newtime.length == 3 ) {
-				elHour.val(newtime.hour);
-				elMinute.val(newtime.minute);
-			} else {
-				$(this).val(timeStr);
-			}
-		});
-	}
-
-	if (mode==1 || mode==3) {
+	if ((mode==1 || mode==3) && !(ui_date_off)) { // || ui_time_off)) { // date picker
 		$datepicker.datepicker({
 			changeYear: true,
 			maxDate: maxDate,
@@ -239,16 +245,47 @@ function enable_datetime_picker($dt_block){
 					}
 				}
 			},
-			onSelect: function(dateText, inst) {},
+			//onSelect: function(dateText, inst) {},
 			defaultDate:dateObj
 		}).datepicker('setDate',dateObj);
-
+		if (date_control && date_control.data('showformat')) {
+			$fmt = $('<span>').attr('class','uidt_format').html(' (' + $datepicker.datepicker( "option", "dateFormat" )+')');
+			$date_target.append($fmt);
+		}
+	}
+	if ((mode==2 || mode==3) && !ui_time_off) { // time picker
+		$timepicker.val(timeStr);
+		$timepicker.timepicker({
+			addSliderAccess: time_control.data('touch'),
+			sliderAccessArgs: { touchonly: false },
+			onClose: function(dateText, inst) {
+				var newtime = parse_time($(this).val());
+				if (newtime && newtime.length == 3 ) {
+					elHour.val(newtime.hour);
+					elMinute.val(newtime.minute);
+				} else {
+					$(this).val(timeStr);
+				}
+			}
+		});
+		$timepicker.change(function(){
+			var newtime = parse_time($(this).val());
+			if (newtime && newtime.length == 3 ) {
+				elHour.val(newtime.hour);
+				elMinute.val(newtime.minute);
+			} else {
+				$(this).val(timeStr);
+			}
+		});
+		if (time_control && time_control.data('showformat')) {
+			$fmt = $('<span>').attr('class','uidt_format').html(' ('+$timepicker.datepicker( "option", "timeFormat" )+')');
+			$time_target.append($fmt);
+		}
 	}
 }
 
 $(function() {
 	$('div[class~=uidt]').each(function(i,e){
-		var name = getInputName($(e).find('select').prop('name'));
 		enable_datetime_picker($(this));
 	});
 });

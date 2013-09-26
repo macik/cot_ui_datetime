@@ -7,6 +7,13 @@ unified pretty style jQueryUI controls.
 Changelog
 ---------
 
+### v1.6.1 (25-sep-2013)
+
+* fixed switching off date/time picker
++ added config for combined mode 
+* fixed view for some themes
++ added custom input template
+
 ### v1.6.0 (30-aug-2013)
 
 * new lib for time picker (more unified with datepicker and touch device support)
