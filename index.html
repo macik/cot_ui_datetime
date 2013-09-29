@@ -52,20 +52,29 @@ easy-to-use dropdown UI controls to selec date/time in one-click.</p>
 
 <h2>Features</h2>
 
-<p>The following markups are supported.  The dependencies listed are required if
-you wish to run the library.</p>
+<ul>
+<li>Unified input field for date or time (or combined)</li>
+<li>User friendly pop-up UI control attached for fast selection of date time</li>
+<li>I18n for date and time picker control (date format, month and day of weeks names)</li>
+<li>ThemeRoller ready as Using jQueryUI library </li>
+<li>By default working in add/edit page, edit users, user profile, search options.</li>
+<li>Optional mode to track standard Cotonti date/time controls and replace with new one regardless opened page or extension</li>
+<li>Works with datetime extrafields </li>
+</ul>
+
+<h2>Requirements</h2>
 
 <ul>
-<li>Unified input field for date selections</li>
-<li>Unified input field for time selections</li>
-<li>User friendly pop-up UI control attached for fast selection of date time</li>
-<li>I18n for datepicker control (date format, month and day of weeks names)</li>
-<li>Using jQueryUI library</li>
-<li>jQueryUI ThemeRoller ready</li>
-<li>By default working in add/edit page, edit users, user profile.</li>
-<li>Optional mode to track any date/time controls and replace with new one regardless opened page 
-or extension</li>
+<li>Works with Cotonti Siena (0.9.x branch).</li>
+<li>Required jQuery to be updated to version 1.6 or higher</li>
+<li>Required jQueryUI (distributed with extension or your custom build with at least datepicker and slider wigits)  </li>
 </ul>
+
+<h2>Version info</h2>
+
+<p>Current version uses:
+* <a href="http://www.jqueryui.com">jQueryUI</a> (version 1.8.23 with Redmond theme).
+* <a href="http://trentrichardson.com/examples/timepicker/">jquery.timepicker.js</a> - Timepicker jQuery plugin by Trent Richardson (from 1.6.0 version of UI</em>datetime)</p>
 
 <h3>Comments</h3>
 
@@ -86,23 +95,35 @@ marked DIV containers. </p>
 <p>Simply it maked by changing controls template in resource strings <code>$R['input_date']</code> 
 and <code>$R['input_date_short']</code>.</p>
 
-<p>The default <strong>ui_date/time</strong> template for <em>'short'</em> date is:</p>
+<p>The default <strong>ui<em>date/time</strong> template for _'short'</em> date is:</p>
 
-<pre><code>&lt;div class="uidt_date"&gt;{$day} {$month} {$year}&lt;/div&gt;
-&lt;div class="uidt_datetarget"&gt;&lt;/div&gt; 
+<pre><code>&lt;div class="uidt mode-date" style="display:inline;"&gt;
+    &lt;div class="common_date" style="display:none;"&gt;
+        {$day} {$month} {$year}
+    &lt;/div&gt;
+    &lt;div style="display:inline;" class="date_target"&gt;
+    &lt;/div&gt;
+&lt;/div&gt; 
 </code></pre>
 
-<p>(See <a href="https://github.com/macik/cot_ui_datetime/blob/master/plugins/ui_datetime/ui_datetime.rc.php">
-<code>ui_datetime.rc.php</code></a> for details.)</p>
-
 <p>Most part of magic happened after page loads. JS script searches for elements 
-with <code>uidt_date</code> and <code>uidt_time</code> class then 
-parse it and linked with new controls added in elements with <code>uidt_datetarget</code> 
-and <code>uidt_timetarget</code> class respectively. </p>
+with <code>uidt</code> class then 
+parse it and linked with new controls added in block with class <code>date_target</code> 
+and <code>time_target</code> class respectively. </p>
+
+<p>New control input field template is located in template now. See <code>ui_datetime.tpl</code> template file, <code>NEWINPUT</code> section. </p>
+
+<pre><code>&lt;!-- BEGIN: NEWINPUT --&gt;
+&lt;input class="ui_input_tpl form-control" type="text" value="" /&gt;&lt;/div&gt;
+&lt;!-- END: NEWINPUT --&gt;
+</code></pre>
+
+<p>Here you can alter <em>classes</em> for you input field or wrap it with addition HTML tags.</p>
 
 <p>By default extension tracks controls only on these pages: add/edit page, edit users, user profile.
-You can switch on <code>global mode</code> in settings for trace all controls on all pages, but it's not
-recommened because will load extension files all the time.</p>
+You can switch on <code>global mode</code> in settings for trace all controls on all pages, but it's not recommened because will load extension files all the time.</p>
+
+<p>This plugin tracks extrafields. So if you add extrafield with <code>datetime</code> type, it creates (by default) with UI_datetime html template, for proper view in page add/edit forms.</p>
 
 <h2>Install</h2>
 
@@ -110,8 +131,16 @@ recommened because will load extension files all the time.</p>
 <li>Unpack, copy files to root folder of your site.</li>
 <li>Install via Admin → Extensions menu (<code>Administration panel → Extensions</code>)</li>
 <li>If you already use jQueryUI in your project than setup path for jQueryUI library 
-in ui_datetime <a href="www.example.com/admin/config?n=edit&amp;o=plug&amp;p=ui_datetime">settings</a> .</li>
-</ul><h3>Comments</h3>
+in ui_datetime <a href="www.example.com/admin/config?n=edit&amp;o=plug&amp;p=ui_datetime">settings</a> .
+If you use custom downloaded bundle of jQueryUI - be sure this lib include datepicker and slider wigets required for date/time picker and its version higher than 1.8.0.</li>
+</ul>
+
+<p><strong>!Note:</strong> If you upgrade extension from version prior to 1.6.0 make full uninstall previous version 
+through admin panel and install new one. Do not update it with «update» button, or be sure 
+to check actual path for new timepicker library. After that you can delete old js time picker library <code>time_pickr</code>
+(<code>./js/time_pickr</code> - old folder for deletion. <code>./js/time_picker</code> is new one. Do not delete).</p>
+
+<h3>Comments</h3>
 
 <p>After install you can see and test extension on Admin → Tools page
 (<code>Administration panel → Extensions → UI date/time picker → Administration</code>).
@@ -119,7 +148,13 @@ You can Enable/Disable date and time controls separately via settings.</p>
 
 <h2>References</h2>
 
-<p><a href="http://Cotonti.com/">Cotonti.com</a> -- Home of Cotonti CMF</p>
+<ul>
+<li><a href="http://Cotonti.com/">Cotonti.com</a> -- Home of Cotonti CMF</li>
+<li><a href="http://www.cotonti.com/forums/?m=posts&amp;q=7105">Discussion</a> -- Forum thread about extension (in russian)</li>
+<li><a href="http://www.cotonti.com/forums?m=posts&amp;q=7118">Discussion</a> -- Forum thread about extension (in english)</li>
+</ul>
+
+
         </section>
 
         <footer>
