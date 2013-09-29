@@ -9,16 +9,20 @@ Changelog
 
 ### v1.6.1 (25-sep-2013)
 
++ adding correct html template for added extrafields with datetime type
+
+### v1.6.1 (25-sep-2013)
+
 * fixed switching off date/time picker
-+ added config for combined mode 
++ added config for combined mode
 * fixed view for some themes
 + added custom input template
 
 ### v1.6.0 (30-aug-2013)
 
 * new lib for time picker (more unified with datepicker and touch device support)
-* fixed issue with consolidated resources and cashed files (thanx to Alex300) 
-+ added default path for loading jQueryUI datepicker lang file 
+* fixed issue with consolidated resources and cashed files (thanx to Alex300)
++ added default path for loading jQueryUI datepicker lang file
 + added combined datetime input field
 + added some attributes to input template for twiking
 
