@@ -1,12 +1,12 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Hooks=admin.extrafields.add
+Hooks=admin.extrafields.add,admin.extrafields.update
 [END_COT_EXT]
 ==================== */
 
 /**
- * Helper for adding datetime extrafields with UI_datetime format
+ * Helper for tracking datetime extrafields on add/update with UI_datetime format
  *
  * @package ui_datetime
  * @author Andrey Matsovkin
@@ -17,7 +17,13 @@ Hooks=admin.extrafields.add
 defined('COT_CODE') || die('Wrong URL ');
 
 if (defined('UI_DATETIME')) {
-	if (!$field['field_html']) {
-		$field['field_html'] = $R['input_date'];
+	if ($a == 'add') {
+		if (!$field['field_html']) {
+			$field['field_html'] = $R['input_date'];
+		}
+	}	elseif ($a == 'upd') {
+		if (!$field['field_html'] && $field['field_type']=='datetime') {
+			$field['field_html'] = $R['input_date'];
+		}
 	}
 }

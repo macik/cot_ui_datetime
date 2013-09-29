@@ -9,7 +9,7 @@ Changelog
 
 ### v1.6.1 (25-sep-2013)
 
-+ adding correct html template for added extrafields with datetime type
++ added tracking for datetime extrafields with UI template format
 
 ### v1.6.1 (25-sep-2013)
 
