@@ -7,7 +7,11 @@ unified pretty style jQueryUI controls.
 Changelog
 ---------
 
-### v1.6.1 (25-sep-2013)
+### v1.6.3 (30-sep-2013)
+
+- Fixed JS script error causing to autofill input field with current date
+
+### v1.6.2 (29-sep-2013)
 
 + added tracking for datetime extrafields with UI template format
 
