@@ -7,9 +7,14 @@ unified pretty style jQueryUI controls.
 Changelog
 ---------
 
+### v1.6.4 (01-oct-2013)
+
++ Ability to set default date for input field with `data-set-date` template attribute
+
 ### v1.6.3 (30-sep-2013)
 
 - Fixed JS script error causing to autofill input field with current date
+- Added unpacked versions of timepicker.js
 
 ### v1.6.2 (29-sep-2013)
 

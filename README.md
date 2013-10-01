@@ -93,6 +93,11 @@ You can switch on `global mode` in settings for trace all controls on all pages,
 
 This plugin tracks extrafields. So if you add extrafield with `datetime` type, it creates (by default) with UI_datetime html template, for proper view in page add/edit forms.
 
+You can set default datetime value for extrafield with adding `data-set-time` attribute to main (`.uidt`) block.
+
+	<div class="uidt mode-datetime-combined" data-set-date="+3600">... 
+
+Value defined by shift in seconds from now().
 
 Install
 -------
