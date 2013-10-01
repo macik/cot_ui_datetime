@@ -7,6 +7,10 @@ unified pretty style jQueryUI controls.
 Changelog
 ---------
 
+### v1.6.5 (02-oct-2013)
+
+* minor fixes in JS file
+
 ### v1.6.4 (01-oct-2013)
 
 + Ability to set default date for input field with `data-set-date` template attribute

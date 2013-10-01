@@ -86,7 +86,11 @@ function enable_datetime_picker($dt_block){
 		if (ui_date_off || ui_time_off) mode = 3;
 		else mode = 4;
 	}
-	if (!mode) return;
+	if (!mode) {
+		$dt_block.find('.common_date').show();
+		$dt_block.find('.common_time').show();
+		return;
+	}
 	if (mode != 2) { // for all date modes
 		var date_control = $dt_block.find("div.common_date"),
 			dateToSet = $dt_block.data('setDate'),
@@ -265,7 +269,9 @@ function enable_datetime_picker($dt_block){
 				elYear.val('');
 				elMonth.val('');
 				elDay.val('');
+				console.log('NUL');
 			} else {
+				console.log('VAL');
 				curDate = $this.datepicker('getDate');
 				$this.datepicker('setDate',curDate);
 				newDay   = curDate.getDate();
@@ -292,6 +298,9 @@ function enable_datetime_picker($dt_block){
 			onClose: function(dateText, inst) {
 				syncDate(dateText, inst, $(this));
 			}
+		});
+		$datepicker.change(function(){
+			syncDate($datepicker.val(), null, $(this));
 		});
 		if (dateObj) {
 			$datepicker.datepicker('setDate',dateObj);
