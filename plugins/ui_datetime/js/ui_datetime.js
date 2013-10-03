@@ -4,6 +4,8 @@ var def_input_tpl = '<input type="text" class="ui_input_tpl">';
 if (typeof ui_input === "undefined") ui_input = def_input_tpl;
 if (typeof ui_date_off === "undefined") ui_date_off = false;
 if (typeof ui_time_off === "undefined") ui_time_off = false;
+if (typeof formatStr === "undefined") formatStr = 'Input format: ';
+
 
 /**
  * Use template to generate input with specified Id and returns jQuery object.
@@ -12,18 +14,19 @@ if (typeof ui_time_off === "undefined") ui_time_off = false;
  * @returns jQuery object
  */
 
-function makeInput(template,id){
+function makeInput(template,id,title){
 	if (!template || template === null || typeof ui_input === "undefined") return null;
 	var $template = $(template),
 		$wrapped = $template.find('.ui_input_tpl'),
 		$plain = $template.closest('.ui_input_tpl');
-	if ($wrapped.length) {
+	if ($wrapped.length) { // inpupt field in template is wrapped with another block
 		$template.find('.ui_input_tpl').attr('id',id);
-	} else if ($plain.length) {
+	} else if ($plain.length) { // just input field
 		$template.closest('.ui_input_tpl').attr('id',id);
-	} else {
+	} else { // use default format
 		$template = $(def_input_tpl);
 	}
+	if (title) $template.attr('title',title);
 	return $template;
 }
 
@@ -70,6 +73,15 @@ function parse_time(time_str) {
 		} else return null;
 }
 
+function getDateFromCot(valYear,valMonth,valDay,valHour,valMinute){
+	if (!valYear) valYear = 0;
+	if (!valMonth) valMonth = 0;
+	if (!valDay) valDay = 0;
+	if (!valHour) valHour = 0;
+	if (!valMinute) valMinute = 0;
+	return new Date(valYear,valMonth-1,valDay,valHour,valMinute);
+}
+
 /**
  * Checks element for date/time controls, hides standard ones
  * adds new style picker and link its data with hidden inputs.
@@ -97,6 +109,7 @@ function enable_datetime_picker($dt_block){
 			elDay = date_control.find('select').filter("[name*='day']"),
 			elMonth = date_control.find('select').filter("[name*='month']"),
 			elYear = date_control.find('select').filter("[name*='year']");
+
 		if (date_control.data('show') == 'off') {
 			date_control.show();
 			return;
@@ -116,11 +129,12 @@ function enable_datetime_picker($dt_block){
 			if (!ui_date_off) $date_target.append(date_input);
 			var $datepicker = $('#'+date_input_id);
 			((date_control.data('show') == 'source') || ui_date_off) ? date_control.show() : date_control.hide();
-			var valDay   = elDay.val();
-			var valMonth = elMonth.val();
-			var valYear  = elYear.val();
-			var minYear = 9999;
-			var maxYear = 1000;
+			var valDay   = elDay.val(),
+				valMonth = elMonth.val(),
+				valYear  = elYear.val(),
+				minYear = 9999,
+				maxYear = 1000;
+
 			elYear.find("option").each(function(i,e){
 				val = $(e).prop('value');
 				if (val) {
@@ -154,8 +168,8 @@ function enable_datetime_picker($dt_block){
 			if (mode!=4 && !ui_time_off) $time_target.append(time_input);
 			var $timepicker = $('#'+time_input_id);
 			(time_control.data('show') == 'source' || ui_time_off) ? time_control.show() : time_control.hide();
-			var valHour = elHour.val();
-			var valMinute = elMinute.val();
+			var valHour = elHour.val(),
+				valMinute = elMinute.val();
 			if (valHour && valMinute) {
 				var timeStr = valHour + ':' + valMinute;
 			} else {
@@ -163,12 +177,12 @@ function enable_datetime_picker($dt_block){
 			}
 		}
 	}
+
 	if (valDay && valMonth && valYear) {
 		var dateObj = new Date(valYear,valMonth-1,valDay,valHour,valMinute);
 	} else {
 		var dateObj = '';
 	}
-
 	// seting up default value if specified by control template and not defined by field value
 	if (!dateObj && /^[\+\-]?([0-9]+)$/.test(dateToSet)) { // is Integer
 		dateObj = new Date(Date.now() + dateToSet * 1000);
@@ -176,7 +190,7 @@ function enable_datetime_picker($dt_block){
 	// initializing datepicker, timepicker or combined input
 	if (mode==4 && !(ui_date_off || ui_time_off)){ // combined mode datetime picker
 			function syncDateTime(dateText, inst, $this){
-				if (!dateText || isNaN(Date.parse(dateText)) ) {
+				if (!dateText){
 					$this.val('');
 					elYear.val('');
 					elMonth.val('');
@@ -184,7 +198,8 @@ function enable_datetime_picker($dt_block){
 					elHour.val('');
 					elMinute.val('');
 				} else {
-					curDate = new Date(Date.parse(dateText));
+//					$this.val(dateText);
+					curDate = $this.datetimepicker('getDate');
 					$this.datetimepicker('setDate',curDate);
 					newDay   = curDate.getDate();
 					newMonth = curDate.getMonth()+1;
@@ -207,7 +222,6 @@ function enable_datetime_picker($dt_block){
 						$this.datetimepicker('setDate',dateObj);
 					}
 				}
-
 			}
 			$datepicker.datetimepicker({
 				changeYear: true,
@@ -218,6 +232,7 @@ function enable_datetime_picker($dt_block){
 					syncDateTime(dateText, inst, $(this));
 				}
 			});
+			if (!$datepicker.attr('title')) $datepicker.attr('title',formatStr+$datepicker.datepicker( "option", "dateFormat" )+' '+$datepicker.datepicker( "option", "timeFormat" ));
 			if ( dateObj ) {
 				$datepicker.datetimepicker("option", "defaultDate", dateObj);
 				$datepicker.datetimepicker('setDate',dateObj);
@@ -253,6 +268,7 @@ function enable_datetime_picker($dt_block){
 		$timepicker.change(function(){
 			syncTime($(this));
 		});
+		if (!$timepicker.attr('title')) $timepicker.attr('title',formatStr+$timepicker.timepicker( "option", "timeFormat" ));
 		if (dateObj) {
 			$timepicker.timepicker('setTime',dateObj);
 		}
@@ -261,17 +277,19 @@ function enable_datetime_picker($dt_block){
 			$time_target.append($fmt);
 		}
 	}
-
 	if ((mode==1 || mode==3) && !(ui_date_off)) { // date picker
+		function validDate(dateStr){
+			defDate = new Date(-100800000); //'12/31/1969');
+			$testDP = $('<input>').val(dateStr).datepicker({defaultDate:defDate});
+			return ($testDP.datepicker('getDate').getTime() != defDate.getTime());
+		}
 		function syncDate(dateText, inst, $this){
-			if (!dateText || isNaN(Date.parse(dateText))) {
+			if (!dateText || !(validDate(dateText))) {
 				$this.val('');
 				elYear.val('');
 				elMonth.val('');
 				elDay.val('');
-				console.log('NUL');
 			} else {
-				console.log('VAL');
 				curDate = $this.datepicker('getDate');
 				$this.datepicker('setDate',curDate);
 				newDay   = curDate.getDate();
@@ -302,6 +320,7 @@ function enable_datetime_picker($dt_block){
 		$datepicker.change(function(){
 			syncDate($datepicker.val(), null, $(this));
 		});
+		if (!$datepicker.attr('title')) $datepicker.attr('title',formatStr+$datepicker.datepicker( "option", "dateFormat" ));
 		if (dateObj) {
 			$datepicker.datepicker('setDate',dateObj);
 			$datepicker.datepicker( "option", "defaultDate", dateObj );
@@ -311,6 +330,31 @@ function enable_datetime_picker($dt_block){
 			$fmt = $('<span>').attr('class','uidt_format').html(' (' + $datepicker.datepicker( "option", "dateFormat" )+')');
 			$date_target.append($fmt);
 		}
+	}
+	function updateNewUI(dateObj){
+		if (dateObj) {
+			if (mode==1 || mode==3) $datepicker.datepicker('setDate',dateObj);
+			if (mode==2 || mode==3) $timepicker.timepicker('setDate',dateObj);
+			if (mode==4) $datepicker.datetimepicker('setDate',dateObj);
+		}
+	}
+
+	if (date_control) {
+		date_control.find('select').change(function(){
+			valDay   = elDay.val();
+			valMonth = elMonth.val();
+			valYear  = elYear.val();
+			dateObj = getDateFromCot(valYear,valMonth,valDay,valHour,valMinute);
+			updateNewUI(dateObj);
+		});
+	}
+	if (time_control) {
+		time_control.find('select').change(function(){
+			valHour = elHour.val();
+			valMinute = elMinute.val();
+			dateObj = getDateFromCot(valYear,valMonth,valDay,valHour,valMinute);
+			updateNewUI(dateObj);
+		});
 	}
 }
 
