@@ -52,43 +52,31 @@ if ($cfg['jquery'] && ($uidt_cfg['enable_datepicker'] || $uidt_cfg['enable_timep
 			$tt->assign('attributes',$tt->text('ATTR'));
 
 			$tt->assign('standard_date_control',$r_date);
-
 			$tt->parse('NEWDATE');
+			$new_ui_date = $tt->text('NEWDATE');
+
 			$tt->assign('standard_time_control',$r_time);
 			$tt->parse('NEWTIME');
+			$new_ui_time = $tt->text('NEWTIME');
 
+			//new template for date
+			$tt->assign('input_resource',$new_ui_date);
+			$tt->assign('mode','date');
+			$tt->parse('NEWRESOURCE');
+			$R['input_date_short'] = $tt->text('NEWRESOURCE');
 
 			// new template for datetime
-			$tt->assign('input_resource',$tt->text('NEWDATE').$tt->text('NEWTIME'));
+			$tt->assign('input_resource',$new_ui_date.$new_ui_time);
 			$defmode = ($uidt_cfg['combined'] && !$admintools) ? 'datetime-combined' : 'datetime';
 			$tt->assign('mode',$defmode);
 			$tt->parse('NEWRESOURCE');
 			$R['input_date'] = $tt->text('NEWRESOURCE');
 
-			//new template for date
-			if ($admintools) {
-				$tt->parse('NEWDATE');
-				$tt->assign('input_resource',$tt->text('NEWDATE'));
-			}
-			$tt->assign('mode','date');
-			$tt->parse('NEWRESOURCE');
-			$R['input_date_short'] = $tt->text('NEWRESOURCE');
-
-			// new template for time
-			$tt->parse('NEWTIME');
-			$tt->assign('input_resource',$tt->text('NEWTIME'));
-			$tt->assign('mode','time');
-			$tt->parse('NEWRESOURCE');
-			$R['input_date_time'] = $tt->text('NEWRESOURCE');
-
-			// new template for combined datetime element
-			$tt->parse('NEWDATE');
-			$tt->parse('NEWTIME');
-			$tt->assign('input_resource',$tt->text('NEWDATE').$tt->text('NEWTIME'));
+			// new template for combined datetime element (used for demopage in admin tools)
 			$tt->assign('mode','datetime-combined');
 			$tt->parse('NEWRESOURCE');
 			if ($ui_date && $ui_time) $R['input_date_combined'] = $tt->text('NEWRESOURCE');
-
+				
 			// template for new input field
 			$tt->parse('NEWINPUT');
 			$ui_input_tpl = 'var ui_input = \''.str_replace(array("'","\n","\r"), array("\'",'',''), $tt->text('NEWINPUT')).'\';';
