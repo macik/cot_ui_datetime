@@ -7,6 +7,16 @@ unified pretty style jQueryUI controls.
 Changelog
 ---------
 
+### v1.7.0 (30-nov-2013)
+
+* some template processing code optimization
+* jQueryUI updated to version 1.10.3
+* some JS fix
+
+### v1.6.5 (04-oct-2013)
+
+* minor fixes in JS file (russian date format in FF)
+
 ### v1.6.5 (02-oct-2013)
 
 * minor fixes in JS file

@@ -5,8 +5,8 @@ Code=ui_datetime
 Name=UI date/time picker
 Category=customization-i18n
 Description=Replaces common date/time dropdown select boxes with usefull jQuery UI date/time picker
-Version=1.6.6-1.8.23
-Date=2013-sep-30
+Version=1.7.0-1.10.3
+Date=2013-nov-30
 Author=Andrey Matsovkin
 Copyright=Copyright (c) 2008-2013, Andrey Matsovkin
 Notes=Tested with Siena 0.9.14
@@ -18,8 +18,8 @@ Lock_members=2345
 
 [BEGIN_COT_EXT_CONFIG]
 global_mode=01:radio:0,1:0:Enable `global mode`
-jquery_ui_js=02:string::./js/jquery_ui/jquery-ui-1.8.23.full.min.js:Full path to jQuery UI library
-jquery_ui_css=04:string::./js/jquery_ui/css/redmond/jquery-ui-1.8.23.full.css:Full path to jQuery UI css file
+jquery_ui_js=02:string::./js/jquery_ui/jquery-ui-1.10.3.datepicker.min.js:Full path to jQuery UI library
+jquery_ui_css=04:string::./js/jquery_ui/css/redmond/jquery-ui-1.10.3.datepicker.min.css:Full path to jQuery UI css file
 support_touch=05:radio:0,1:1:Enabled support slider on touch devices
 enable_datepicker=07:radio:0,1:1:Enable datepicker
 enable_timepicker=11:radio:0,1:1:Enable timepicker

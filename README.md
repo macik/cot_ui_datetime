@@ -40,7 +40,7 @@ Version info
 ------------
 
 Current version uses:
-* [jQueryUI](http://www.jqueryui.com) (version 1.8.23 with Redmond theme).
+* [jQueryUI](http://www.jqueryui.com) (version 1.10.3 with Redmond theme).
 * [jquery.timepicker.js](http://trentrichardson.com/examples/timepicker/) - Timepicker jQuery plugin by Trent Richardson (from 1.6.0 version of UI_datetime)
 
 

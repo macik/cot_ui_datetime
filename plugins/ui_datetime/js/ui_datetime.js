@@ -90,7 +90,7 @@ function getDateFromCot(valYear,valMonth,valDay,valHour,valMinute){
 function enable_datetime_picker($dt_block){
 	var classes = $dt_block.attr('class').split(' '),
 		mode = 0;
-		valDay, valMonth, valYear, valHour, valMinute;
+		valDay = 0, valMonth = 0, valYear = 0, valHour = 0, valMinute = 0;
 	if (classes.indexOf('mode-date')>-1 && !ui_date_off) mode = 1;
 	if (classes.indexOf('mode-time')>-1 && !ui_time_off) mode = 2;
 	if (classes.indexOf('mode-datetime')>-1) mode = 3;
