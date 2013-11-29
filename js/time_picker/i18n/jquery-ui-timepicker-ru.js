@@ -10,7 +10,7 @@
 		millisecText: 'Миллисекунды',
 		microsecText: 'Микросекунды',
 		timezoneText: 'Часовой пояс',
-		currentText: 'Текущее',
+		currentText: 'Сейчас',
 		closeText: 'Закрыть',
 		timeFormat: 'HH:mm',
 		amNames: ['AM', 'A'],
