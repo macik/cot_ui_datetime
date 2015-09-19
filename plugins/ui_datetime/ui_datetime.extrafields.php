@@ -18,7 +18,7 @@ defined('COT_CODE') || die('Wrong URL ');
 
 if (defined('UI_DATETIME')) {
 	if ($a == 'add') {
-		if (!$field['field_html']) {
+		if (!$field['field_html'] && $field['field_type']=='datetime') {
 			$field['field_html'] = $R['input_date'];
 		}
 	}	elseif ($a == 'upd') {
